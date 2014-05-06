@@ -1,14 +1,14 @@
 /**
  * Background processor for FirePHP4Chrome
- * 
+ *
  * Handles various tasks including:
  * - adding the outgoing firephp header
  * - adding a listener for message from devtools to run console log on
  * - has the inline script
- * 
- * Special notes: This extension was inspired by Google samples and other chrome FirePHP scripts, 
+ *
+ * Special notes: This extension was inspired by Google samples and other chrome FirePHP scripts,
  * none of them worked. :(
- * 
+ *
  * @author Aaron Saray aaron@aaronsaray.com
  */
 
@@ -29,12 +29,12 @@ chrome.webRequest.onBeforeSendHeaders.addListener(
 		},
         {
 			name:   'X-Wf-Max-Combined-Size',
-	        value:  '262144'
+	        value:  '202144'
         });
 		return {
 			requestHeaders: details.requestHeaders
 		};
-	}, {urls: ["<all_urls>"]}, ['blocking', 'requestHeaders']	
+	}, {urls: ["<all_urls>"]}, ['blocking', 'requestHeaders']
 );
 
 /**
@@ -45,7 +45,7 @@ const LOGGER = function (json) {
     console[commandObject.type].apply(console, commandObject.params);
 };
 
-/** 
+/**
  * messages come from devtools in the form of an object with a type of console log an a message to send
  * all escaped and jsonified
  */
@@ -55,5 +55,5 @@ chrome.extension.onMessage.addListener(
 		chrome.tabs.executeScript(null, {
 			 code: "("+ LOGGER + ")('" + commandObject + "');"
 		});
-	}	
+	}
 );
